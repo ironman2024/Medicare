@@ -1,0 +1,94 @@
+<?php
+    include_once 'includes/db.inc.php';
+    $cart_query = "SELECT * FROM cart";
+    $cart_result = mysqli_query($conn, $cart_query);
+
+    $cart = [];
+    if ($cart_result && mysqli_num_rows($cart_result) > 0) {
+        while ($row = mysqli_fetch_assoc($cart_result)) {
+            $cart[] = $row;
+        }
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart - Pharmacy E-commerce</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <div class="cart-container">
+        <h2>My Cart</h2>
+        <div id="cart-items"></div>
+        <div id="total-price">Total: ₹0.00</div>
+        <!-- Checkout button -->
+        <button id="checkout-btn">Checkout</button>
+    </div>
+
+    <script>
+        // Function to save cart items to localStorage
+        function saveCartItems(cartItems) {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+
+        // Function to get cart items from localStorage
+        function getCartItems() {
+            return JSON.parse(localStorage.getItem('cartItems')) || [];
+        }
+
+        // Function to display cart items
+        function displayCartItems() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+            const cartItems = getCartItems(); 
+
+            let totalPrice = 0;
+
+            cartItems.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <div>
+                        <span>${item.name}</span>
+                        <span>Price: ₹${item.price.toFixed(2)}</span>
+                    </div>
+                    <button class="remove-item" data-name="${item.name}">Remove</button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+
+                totalPrice += parseFloat(item.price);
+            });
+
+            totalPriceElement.textContent = `Total: ₹${totalPrice.toFixed(2)}`;
+        }
+
+        // Function to remove cart item
+        function removeCartItem(event) {
+            if (event.target.classList.contains('remove-item')) {
+                const itemName = event.target.dataset.name;
+                let cartItems = getCartItems();
+
+                cartItems = cartItems.filter(item => item.name !== itemName);
+                saveCartItems(cartItems); 
+
+                const cartItemsContainer = document.getElementById('cart-items');
+                cartItemsContainer.innerHTML = '';
+                displayCartItems();
+            }
+        }
+
+        document.addEventListener('click', removeCartItem);
+
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            const cartItems = getCartItems(); 
+            localStorage.setItem('checkoutCartItems', JSON.stringify(cartItems)); 
+            window.location.href = 'checkout.php'; // Redirect to checkout page
+        });
+
+        displayCartItems();
+    </script>
+</body>
+</html>

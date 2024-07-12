@@ -8,9 +8,10 @@ form {
 	justify-content: center;
 }
 .center {
-	margin-top: 40px;
+	margin-top: 120px;
+	margin-left: 500px;
 	background: white;
-	padding: 30px 56px;
+	padding: 50px 25px;
 }
 #img1 {
 	height: 90vh;
@@ -32,4 +33,16 @@ form {
 }
 #aBtn2:hover {
 	color: #202020;
+}
+.form-control {
+	width: 240px;
+}
+input[name="email"] {
+	margin-bottom: 20px;
+}
+.two {
+	padding: 70px 70px;
+}
+.three {
+	visibility: hidden;
 }

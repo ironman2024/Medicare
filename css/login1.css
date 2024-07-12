@@ -1,0 +1,38 @@
+.center {
+    margin-top: 100px;
+    background: white;
+    padding: 50px 25px;
+}
+
+.center:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.img,
+.center {
+    position: absolute;
+}
+
+#img1 {
+    height: 90vh;
+    width: 100%;
+    filter: opacity(40%);
+}
+
+#forgot {
+    float: right;
+    margin-top: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #5d6d7e !important;
+    border-color: #5d6d7e !important;
+}
+
+a#forgot:hover {
+    color: #5d6d7e;
+}
+
+.rounded-lg {
+    border-radius: 20px;
+}

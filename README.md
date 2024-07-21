@@ -83,4 +83,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 For any inquiries or feedback, please contact:
-- **Your Name**: atharva.shashiknat.karval@gmail.com
+- **Your Name**: atharva.shashikant.karval@gmail.com
